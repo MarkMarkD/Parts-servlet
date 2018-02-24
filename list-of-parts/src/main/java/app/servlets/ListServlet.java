@@ -68,14 +68,14 @@ public class ListServlet extends HttpServlet {
         } catch (Exception e) {e.printStackTrace();}
 
         //creates new entity FilterValues with all the filter values entered by user
-        FilterValues filter = new FilterValues (partName, partNumber, vendor, qty, shippedAfter, shippedBefore,
+        FilterValues fv = new FilterValues (partName, partNumber, vendor, qty, shippedAfter, shippedBefore,
                 receivedAfter, receivedBefore);
 
         //send filter info to Model and get list of filtered parts
         Model model = Model.getInstance();
         List<Part> parts = null;
         try {
-            parts = model.getListOfPartsFromDB(filter);
+            parts = model.getListOfPartsFromDB(fv);
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
@@ -83,6 +83,14 @@ public class ListServlet extends HttpServlet {
         }
 
         req.setAttribute("listOfParts", parts);
+        req.setAttribute("pnumber", partNumber);
+        req.setAttribute("pname", partName);
+        req.setAttribute("vendor", vendor);
+        req.setAttribute("qty", quantity);
+        req.setAttribute("shippedAfter", shpdAfter);
+        req.setAttribute("shippedBefore", shpdBefore);
+        req.setAttribute("receivedAfter", rcvdAfter);
+        req.setAttribute("receivedBefore", rcvdBefore);
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("views/list.jsp");
         requestDispatcher.forward(req, resp);
     }
