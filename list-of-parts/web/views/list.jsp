@@ -2,7 +2,8 @@
 <%@ page import="app.entities.Part" %>
 <%@ page import="app.servlets.ListServlet" %>
 <%@ page import="java.text.SimpleDateFormat" %>
-<%@ page import="java.util.Locale" %><%--
+<%@ page import="java.util.Locale" %>
+<%@ page import="app.entities.FilterValues" %><%--
   Created by IntelliJ IDEA.
   User: Дмитрий
   Date: 23.02.2018
@@ -21,43 +22,106 @@
     <!-- filter table -->
     <table border="1" width = 40% cellspacing="0" cellpadding="3" >
         <caption></caption>
+        <%
+
+            String pname = (String) request.getAttribute("pname");
+            String pnumber = (String) request.getAttribute("pnumber");
+            String vendor = (String) request.getAttribute("vendor");
+            String qty = (String) request.getAttribute("qty");
+            String shippedAfter = (String) request.getAttribute("shippedAfter");
+            String shippedBefore = (String) request.getAttribute("shippedBefore");
+            String receivedAfter = (String) request.getAttribute("receivedAfter");
+            String receivedBefore = (String) request.getAttribute("receivedBefore");
+        %>
         <form method="post">
             <ul>
                 <li>
                     <label>PN
-                        <input type="text" name="pnumber"><br />
+                        <%
+                            if (pnumber != null) {
+                                out.println("<input value = \"" + pnumber + "\" type=\"text\" name=\"pnumber\"><br />");
+                            }
+                            else {
+                                out.println("<input value = \"\" type=\"text\" name=\"pnumber\"><br />");
+                            }
+                        %>
                     </label>
                 </li>
 
                 <li>
                     <label>Part Name:
-                        <input type="text" name="pname"><br />
+                        <%
+                            if (pname != null) {
+                                out.println("<input value = \"" + pname + "\" type=\"text\" name=\"pname\"><br />");
+                            }
+                            else {
+                                out.println("<input value = \"\" type=\"text\" name=\"pname\"><br />");
+                            }
+                        %>
                     </label>
                 </li>
 
                 <li>
                     <label>Vendor:
-                        <input type="text" name="vendor" ><br />
+                        <%
+                            if (vendor != null) {
+                                out.println("<input value = \"" + vendor + "\" type=\"text\" name=\"vendor\"><br />");
+                            }
+                            else {
+                                out.println("<input value = \"\" type=\"text\" name=\"vendor\"><br />");
+                            }
+                        %>
                     </label>
                 </li>
 
                 <li>
                     <label>Qty:
-                        <input type="text" name="qty"><br />
+                        <%
+                            if (qty != null) {
+                                out.println("<input value = \"" + qty + "\" type=\"text\" name=\"qty\"><br />");
+                            }
+                            else {
+                                out.println("<input value = \"\" type=\"text\" name=\"qty\"><br />");
+                            }
+                        %>
                     </label>
                 </li>
 
                 <li>
                     <label>Shipped:
-                        after <input size = "6" type="text" name="shippedAfter">
-                        before <input size = "6" type="text" name="shippedBefore"><br />
+                        <%
+                            if (shippedAfter != null) {
+                                out.println("after <input size = \"7\" value = \"" + shippedAfter + "\" type=\"text\" name=\"shippedAfter\">");
+                            }
+                            else {
+                                out.println("after <input  size = \"7\" value = \"\" type=\"text\" name=\"shippedAfter\">");
+                            }
+                            if (shippedBefore != null) {
+                                out.println("before<input size = \"7\" value = \"" + shippedBefore + "\" type = \"text\" name = \"shippedBefore\" ><br / >");
+                            }
+                            else {
+                                out.println("before <input  size = \"7\" value = \"\" type=\"text\" name=\"shippedBefore\">");
+                            }
+                        %>
                     </label>
                 </li>
 
                 <li>
                     <label>Received:
-                        after <input size = "6" type="text" name="receivedAfter">
-                        before <input size = "6" type="text" name="receivedBefore"><br />
+                        <%
+                            if (receivedAfter != null) {
+                                out.println("after <input size = \"7\" value = \"" + receivedAfter + "\" type=\"text\" name=\"receivedAfter\">");
+                            }
+                            else {
+                                out.println("after <input  size = \"7\" value = \"\" type=\"text\" name=\"receivedAfter\">");
+                            }
+                            if (receivedBefore != null) {
+                                out.println("before<input size = \"7\" value = \"" + receivedBefore + "\" type = \"text\" name = \"receivedBefore\" ><br / >");
+                            }
+                            else {
+                                out.println("before <input  size = \"7\" value = \"\" type=\"text\" name=\"receivedBefore\">");
+                            }
+                        %>
                     </label>
                 </li>
 
@@ -109,7 +173,7 @@
                             "<td>" + formattedShipped + "</td>" +
                             "<td>" + formattedReceived + "</td></tr>");
                 }
-            } else out.println("<p>You don't have any parts!! Or check your DB connection</p>");
+            } else out.println("<p>No results matching your request</p>");
         %>
     </table>
 </div>
