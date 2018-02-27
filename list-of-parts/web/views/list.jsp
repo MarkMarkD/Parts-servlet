@@ -23,7 +23,6 @@
     <table border="1" width = 40% cellspacing="0" cellpadding="3" >
         <caption></caption>
         <%
-
             String pname = (String) request.getAttribute("pname");
             String pnumber = (String) request.getAttribute("pnumber");
             String vendor = (String) request.getAttribute("vendor");
@@ -32,13 +31,17 @@
             String shippedBefore = (String) request.getAttribute("shippedBefore");
             String receivedAfter = (String) request.getAttribute("receivedAfter");
             String receivedBefore = (String) request.getAttribute("receivedBefore");
+            String sortingOrder = (String) request.getAttribute("sortingOrder");
+            if (sortingOrder == null) sortingOrder = "";
         %>
-        <form method="post">
+
+        <!-- filter-->
+        <form id = "01" method="post">
             <ul>
                 <li>
                     <label>PN
                         <%
-                            if (pnumber != null) {
+                            if ((pnumber != null) && (!pnumber.equals("null"))) {
                                 out.println("<input value = \"" + pnumber + "\" type=\"text\" name=\"pnumber\"><br />");
                             }
                             else {
@@ -51,7 +54,7 @@
                 <li>
                     <label>Part Name:
                         <%
-                            if (pname != null) {
+                            if ((pname != null) && (!pname.equals("null"))) {
                                 out.println("<input value = \"" + pname + "\" type=\"text\" name=\"pname\"><br />");
                             }
                             else {
@@ -64,7 +67,7 @@
                 <li>
                     <label>Vendor:
                         <%
-                            if (vendor != null) {
+                            if ((vendor != null) && (!vendor.equals("null"))) {
                                 out.println("<input value = \"" + vendor + "\" type=\"text\" name=\"vendor\"><br />");
                             }
                             else {
@@ -77,7 +80,7 @@
                 <li>
                     <label>Qty:
                         <%
-                            if (qty != null) {
+                            if ((qty != null) && (!qty.equals("null"))) {
                                 out.println("<input value = \"" + qty + "\" type=\"text\" name=\"qty\"><br />");
                             }
                             else {
@@ -90,13 +93,13 @@
                 <li>
                     <label>Shipped:
                         <%
-                            if (shippedAfter != null) {
+                            if ((shippedAfter != null) && (!shippedAfter.equals("null"))) {
                                 out.println("after <input size = \"7\" value = \"" + shippedAfter + "\" type=\"text\" name=\"shippedAfter\">");
                             }
                             else {
                                 out.println("after <input  size = \"7\" value = \"\" type=\"text\" name=\"shippedAfter\">");
                             }
-                            if (shippedBefore != null) {
+                            if ((shippedBefore != null) && (!shippedBefore.equals("null"))) {
                                 out.println("before<input size = \"7\" value = \"" + shippedBefore + "\" type = \"text\" name = \"shippedBefore\" ><br / >");
                             }
                             else {
@@ -109,13 +112,13 @@
                 <li>
                     <label>Received:
                         <%
-                            if (receivedAfter != null) {
+                            if ((receivedAfter != null) && (!receivedAfter.equals("null")))  {
                                 out.println("after <input size = \"7\" value = \"" + receivedAfter + "\" type=\"text\" name=\"receivedAfter\">");
                             }
                             else {
                                 out.println("after <input  size = \"7\" value = \"\" type=\"text\" name=\"receivedAfter\">");
                             }
-                            if (receivedBefore != null) {
+                            if ((receivedBefore != null) && (!receivedBefore.equals("null"))) {
                                 out.println("before<input size = \"7\" value = \"" + receivedBefore + "\" type = \"text\" name = \"receivedBefore\" ><br / >");
                             }
                             else {
@@ -124,31 +127,29 @@
                         %>
                     </label>
                 </li>
-
-                <button type="submit">Filter</button>
             </ul>
+            <button type="submit">Filter</button>
         </form>
     </table>
-
 <div>
+
     <!-- output filtered parts table -->
     <table border="1" width = 40% cellspacing="0" cellpadding="3" >
         <caption></caption>
         <tr>
-            <th>PN</th>
-            <th>Part Name</th>
-            <th>Vendor</th>
-            <th>Qty</th>
-            <th>Shipped</th>
-            <th>Received</th>
+                <!--sort by column-->
+                <th><button type="submit" form = "01" name="sortByColumn" value="1">PN</button></th>
+                <th><button type="submit" form = "01" name="sortByColumn" value="2">Part Name</button></th>
+                <th><button type="submit" form = "01" name="sortByColumn" value="3">Vendor</button></th>
+                <th><button type="submit" form = "01" name="sortByColumn" value="4">Qty</button></th>
+                <th><button type="submit" form = "01" name="sortByColumn" value="5">Shipped</button></th>
+                <th><button type="submit" form = "01" name="sortByColumn" value="6">Received</button></th>
         </tr>
-
 
         <%
             List<Part> parts = (List<Part>) request.getAttribute("listOfParts");
             String formattedShipped = null;     //Shipped date formatted in (MMM dd, yyyy)
             String formattedReceived = null;    //Received date formatted in (MMM dd, yyyy)
-
 
             if (parts != null && !parts.isEmpty()) {
                 for (Part s : parts) {
