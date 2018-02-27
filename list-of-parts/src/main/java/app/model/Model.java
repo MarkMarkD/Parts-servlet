@@ -40,37 +40,41 @@ public class Model {
         if (filter == null) {
             query = "SELECT * FROM public.tableofparts";
         }
-        //create query string and apply all the filter fields entered by user
         else {
+            //create query string and apply all the filter fields entered by user
             query = "SELECT * FROM public.tableofparts WHERE qty >= '0'";
-            if (filter.getPartName() != null) {
+            if ((filter.getPartName() != null) && (!filter.getPartName().equals("null"))) {
                 query = query + " AND pname LIKE '%" + filter.getPartName() + "%'";
             }
-            if (filter.getPartNumber() != null) {
+            if ((filter.getPartNumber() != null) && (!filter.getPartNumber().equals("null"))) {
                 query = query + " AND pnumber LIKE '%" + filter.getPartNumber() + "%'";
             }
-            if (filter.getVendor() != null) {
+            if ((filter.getVendor() != null) && (!filter.getVendor().equals("null"))) {
                 query = query + " AND vendor LIKE '%" + filter.getVendor() + "%'";
             }
             if (filter.getQty() >= 0) {
                 query = query + " AND qty >= '" + filter.getQty() + "'";
             }
-            if (filter.getShippedAfter() != null) {
+            if ((filter.getShippedAfter() != null) && (!filter.getShippedAfter().equals("null"))) {
                 query = query + " AND shipped > '" + filter.getShippedAfter() + "'";
             }
-            if (filter.getShippedBefore() != null) {
+            if ((filter.getShippedBefore() != null) && (!filter.getShippedBefore().equals("null"))) {
                 query = query + " AND shipped < '" + filter.getShippedBefore() + "'";
             }
-            if (filter.getReceivedAfter() != null) {
+            if ((filter.getReceivedAfter() != null) && (!filter.getReceivedAfter().equals("null"))) {
                 query = query + " AND received > '" + filter.getReceivedAfter() + "'";
             }
-            if (filter.getReceivedBefore() != null) {
+            if ((filter.getReceivedBefore() != null) && (!filter.getReceivedBefore().equals("null"))) {
                 query = query + " AND received < '" + filter.getReceivedBefore() + "'";
+            }
+            if (filter.getSortBy() != null) {
+                query = query + " ORDER BY " + filter.getSortBy() + " " + filter.getSortingOrder();
             }
             //query = "SELECT * FROM public.tableofparts WHERE pnumber LIKE '%01%' AND pname LIKE '%LCD%'";
         }
 
         resultSet = statement.executeQuery(query);
+        //fill list of parts with filtered entities
         while (resultSet.next()) {
             String partName = resultSet.getString("Pname");
             String partNumber = resultSet.getString("Pnumber");
