@@ -12,9 +12,11 @@ public class FilterValues extends Part {
     private Date shippedBefore;
     private Date receivedAfter;
     private Date receivedBefore;
+    private String sortBy;          //sort by column (1 to 6)
+    private String sortingOrder;    //ASC or DESC
 
     public FilterValues (String partName, String partNumber, String vendor, int qty, Date shpdAfter, Date shpdBefore,
-                         Date rcvdAfter, Date rcvdBefore) {
+                         Date rcvdAfter, Date rcvdBefore, String sortBy, String sortingOrder) {
 
         this.partName = partName;
         this.partNumber = partNumber;
@@ -24,6 +26,8 @@ public class FilterValues extends Part {
         shippedBefore = shpdBefore;
         receivedAfter = rcvdAfter;
         receivedBefore = rcvdBefore;
+        this.sortBy = sortBy;
+        this.sortingOrder = sortingOrder;
     }
 
     public Date getShippedAfter() {
@@ -56,5 +60,21 @@ public class FilterValues extends Part {
 
     public void setReceivedBefore(Date receivedBefore) {
         this.receivedBefore = receivedBefore;
+    }
+
+    public String getSortBy() {
+        return sortBy;
+    }
+
+    public void setSortBy(String sortBy) {
+        this.sortBy = sortBy;
+    }
+
+    public String getSortingOrder() {
+        return sortingOrder;
+    }
+
+    public void setSortingOrder(String sortingOrder) {
+        this.sortingOrder = sortingOrder;
     }
 }
