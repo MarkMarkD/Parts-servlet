@@ -14,6 +14,88 @@
 <html>
 <head>
     <title>List of parts</title>
+    <style type="text/css">
+        table {
+            border-collapse: collapse;
+            border: 3px solid lightblue;
+            margin: 0 auto;
+            height: auto;
+            width: 70%;
+        }
+
+        th {
+            background-color: lightblue;
+            border-bottom: 2px solid lightgray;
+            text-align: left;
+        }
+
+        td:nth-child(1) {
+            width: 200px;
+        }
+
+        tr {
+            border-bottom: 1px solid lightgray;
+        }
+
+        td {
+            height: 25px;
+        }
+
+        button {
+            background-color: lightblue;
+
+        }
+
+        #filterButton {
+            background-color: lightblue;
+
+        }
+
+        .applyFilter {
+            text-align: center;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        .outputMessage {
+            text-align: center;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        tr,
+        td,
+        th {
+            border: 1px solid lightgray;
+            padding-left: 7px;
+        }
+
+        .PnumRes {
+            width: 10%;
+        }
+
+        .PnameRes {
+            width: 40%;
+        }
+
+        .VendorRes {
+            width: 15%;
+        }
+
+        .QtyRes {
+            width: 5%;
+            text-align: center;
+        }
+
+        .ShpdRes {
+            width: 15%;
+        }
+
+        .RcvdRes {
+            width: 15%;
+        }
+
+    </style>
 </head>
 <body>
 <div>
@@ -21,7 +103,6 @@
 </div>
     <!-- filter table -->
     <table border="1" width = 40% cellspacing="0" cellpadding="3" >
-        <caption></caption>
         <%
             String pname = (String) request.getAttribute("pname");
             String pnumber = (String) request.getAttribute("pnumber");
@@ -37,113 +118,134 @@
 
         <!-- filter-->
         <form id = "01" method="post">
-            <ul>
-                <li>
-                    <label>PN
+
+            <tr>
+                <th colspan="5">Filter</th>
+            </tr>
+            <tr>
+                <td>
+                    <label>PN</label>
+                </td>
+                <td>
                         <%
                             if ((pnumber != null) && (!pnumber.equals("null"))) {
-                                out.println("<input value = \"" + pnumber + "\" type=\"text\" name=\"pnumber\"><br />");
+                                out.println("<input size = \"35\"  value = \"" + pnumber + "\" type=\"text\" name=\"pnumber\"><br />");
                             }
                             else {
-                                out.println("<input value = \"\" type=\"text\" name=\"pnumber\"><br />");
+                                out.println("<input size = \"35\"  value = \"\" type=\"text\" name=\"pnumber\"><br />");
                             }
                         %>
-                    </label>
-                </li>
 
-                <li>
-                    <label>Part Name:
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Part Name:</label>
+                </td>
+                <td>
                         <%
                             if ((pname != null) && (!pname.equals("null"))) {
-                                out.println("<input value = \"" + pname + "\" type=\"text\" name=\"pname\"><br />");
+                                out.println("<input size = \"35\" value = \"" + pname + "\" type=\"text\" name=\"pname\"><br />");
                             }
                             else {
-                                out.println("<input value = \"\" type=\"text\" name=\"pname\"><br />");
+                                out.println("<input size = \"35\" value = \"\" type=\"text\" name=\"pname\"><br />");
                             }
                         %>
-                    </label>
-                </li>
 
-                <li>
-                    <label>Vendor:
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Vendor:</label>
+                </td>
+                <td>
                         <%
                             if ((vendor != null) && (!vendor.equals("null"))) {
-                                out.println("<input value = \"" + vendor + "\" type=\"text\" name=\"vendor\"><br />");
+                                out.println("<input size = \"35\" value = \"" + vendor + "\" type=\"text\" name=\"vendor\"><br />");
                             }
                             else {
-                                out.println("<input value = \"\" type=\"text\" name=\"vendor\"><br />");
+                                out.println("<input size = \"35\" value = \"\" type=\"text\" name=\"vendor\"><br />");
                             }
                         %>
-                    </label>
-                </li>
 
-                <li>
-                    <label>Qty:
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Qty:</label>
+                </td>
+                <td>
                         <%
                             if ((qty != null) && (!qty.equals("null"))) {
-                                out.println("<input value = \"" + qty + "\" type=\"text\" name=\"qty\"><br />");
+                                out.println("<input size = \"6\" value = \"" + qty + "\" type=\"text\" name=\"qty\"><br />");
                             }
                             else {
-                                out.println("<input value = \"\" type=\"text\" name=\"qty\"><br />");
+                                out.println("<input size = \"6\" value = \"\" type=\"text\" name=\"qty\"><br />");
                             }
                         %>
-                    </label>
-                </li>
 
-                <li>
-                    <label>Shipped:
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Shipped:</label>
+                </td>
+                <td>
                         <%
                             if ((shippedAfter != null) && (!shippedAfter.equals("null"))) {
-                                out.println("after <input size = \"7\" value = \"" + shippedAfter + "\" type=\"text\" name=\"shippedAfter\">");
+                                out.println("after <input size = \"10\" value = \"" + shippedAfter + "\" type=\"text\" name=\"shippedAfter\">");
                             }
                             else {
-                                out.println("after <input  size = \"7\" value = \"\" type=\"text\" name=\"shippedAfter\">");
+                                out.println("after <input  size = \"10\" value = \"\" type=\"text\" name=\"shippedAfter\">");
                             }
                             if ((shippedBefore != null) && (!shippedBefore.equals("null"))) {
-                                out.println("before<input size = \"7\" value = \"" + shippedBefore + "\" type = \"text\" name = \"shippedBefore\" ><br / >");
+                                out.println("before<input size = \"10\" value = \"" + shippedBefore + "\" type = \"text\" name = \"shippedBefore\" ><br / >");
                             }
                             else {
-                                out.println("before <input  size = \"7\" value = \"\" type=\"text\" name=\"shippedBefore\">");
+                                out.println("before <input  size = \"10\" value = \"\" type=\"text\" name=\"shippedBefore\">");
                             }
                         %>
-                    </label>
-                </li>
 
-                <li>
-                    <label>Received:
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Received:</label>
+                </td>
+                <td>
                         <%
                             if ((receivedAfter != null) && (!receivedAfter.equals("null")))  {
-                                out.println("after <input size = \"7\" value = \"" + receivedAfter + "\" type=\"text\" name=\"receivedAfter\">");
+                                out.println("after <input size = \"10\" value = \"" + receivedAfter + "\" type=\"text\" name=\"receivedAfter\">");
                             }
                             else {
-                                out.println("after <input  size = \"7\" value = \"\" type=\"text\" name=\"receivedAfter\">");
+                                out.println("after <input  size = \"10\" value = \"\" type=\"text\" name=\"receivedAfter\">");
                             }
                             if ((receivedBefore != null) && (!receivedBefore.equals("null"))) {
-                                out.println("before<input size = \"7\" value = \"" + receivedBefore + "\" type = \"text\" name = \"receivedBefore\" ><br / >");
+                                out.println("before<input size = \"10\" value = \"" + receivedBefore + "\" type = \"text\" name = \"receivedBefore\" ><br / >");
                             }
                             else {
-                                out.println("before <input  size = \"7\" value = \"\" type=\"text\" name=\"receivedBefore\">");
+                                out.println("before <input  size = \"10\" value = \"\" type=\"text\" name=\"receivedBefore\">");
                             }
                         %>
-                    </label>
-                </li>
-            </ul>
-            <button type="submit">Filter</button>
+                </td>
+            </tr>
         </form>
     </table>
+<div class = applyFilter>
+    <button id = "filterButton" type="submit" form = "01">Filter</button>
+</div>
 <div>
 
     <!-- output filtered parts table -->
-    <table border="1" width = 40% cellspacing="0" cellpadding="3" >
-        <caption></caption>
+    <table>
         <tr>
                 <!--sort by column-->
-                <th><button type="submit" form = "01" name="sortByColumn" value="1">PN</button></th>
-                <th><button type="submit" form = "01" name="sortByColumn" value="2">Part Name</button></th>
-                <th><button type="submit" form = "01" name="sortByColumn" value="3">Vendor</button></th>
-                <th><button type="submit" form = "01" name="sortByColumn" value="4">Qty</button></th>
-                <th><button type="submit" form = "01" name="sortByColumn" value="5">Shipped</button></th>
-                <th><button type="submit" form = "01" name="sortByColumn" value="6">Received</button></th>
+                <th class="PnumRes" ><button type="submit" form = "01" name="sortByColumn" value="1">PN</button></th>
+                <th class="PnameRes" ><button type="submit" form = "01" name="sortByColumn" value="2">Part Name</button></th>
+                <th class="VendorRes"><button type="submit" form = "01" name="sortByColumn" value="3">Vendor</button></th>
+                <th class="QtyRes"><button type="submit" form = "01" name="sortByColumn" value="4">Qty</button></th>
+                <th class="ShpdRes"><button type="submit" form = "01" name="sortByColumn" value="5">Shipped</button></th>
+                <th class="RcvdRes"><button type="submit" form = "01" name="sortByColumn" value="6">Received</button></th>
         </tr>
 
         <%
@@ -174,7 +276,7 @@
                             "<td>" + formattedShipped + "</td>" +
                             "<td>" + formattedReceived + "</td></tr>");
                 }
-            } else out.println("<p>No results matching your request</p>");
+            } else out.println("<div class = outputMessage> <h3> No results matching your request </h3></div>");
         %>
     </table>
 </div>
